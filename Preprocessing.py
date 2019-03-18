@@ -3,6 +3,7 @@ from tqdm import tqdm
 import numpy as np
 import gensim # thư viện NLP
 import os 
+import pickle
 dir_path = os.path.dirname(os.path.realpath(os.getcwd()))
 dir_path = os.path.join(dir_path, 'DefineLink')
 
@@ -13,7 +14,7 @@ def get_data(folder_path):
     # for path in tqdm(dirs):
         # file_paths = os.listdir(os.path.join(folder_path, path))
     for file_path in tqdm(dirs):
-        with open(os.path.join(folder_path, file_path), 'r', encoding="utf-16") as f:
+        with open(os.path.join(folder_path, file_path), 'r', encoding="utf8") as f:
             lines = f.readlines()
             lines = ' '.join(lines)
             lines = gensim.utils.simple_preprocess(lines)
@@ -27,3 +28,5 @@ def get_data(folder_path):
 
 train_path = os.path.join(dir_path, 'Data')
 X_data, y_data = get_data(train_path)
+pickle.dump(X_data, open('data/X_data.pkl', 'wb'))
+pickle.dump(y_data, open('data/y_data.pkl', 'wb'))
