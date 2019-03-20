@@ -7,29 +7,31 @@ def  not_relative_uri(href):
     return re.compile('^https://').search(href) is  not  None
 
 url = 'https://vnexpress.net/'
-category = [{'tag':'the-thao','id':0},{'tag':'phap-luat','id':1}]
+category = [{'tag':'kinh-doanh','name':'Kinh Doanh','id':0},{'tag':'the-thao','name':'The Thao','id':1}, 
+            {'tag':'giai-tri','name':'Giai Tri','id':2}, {'tag':'du-lich', 'name':'Du Lich','id':3}, {'tag':'so-hoa','name':'So Hoa', 'id':4}]
 for cate in category:
-    page = urllib.request.urlopen(url+cate['tag'])
-    soup = BeautifulSoup(page, 'html.parser')
-    new_feeds = soup.findAll(class_='title_news')
-    with open('data-'+cate['tag']+'.csv', 'w', encoding='utf8') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerow(['Title', 'Content'])
-        for nfeed in new_feeds:
-            feed = nfeed.find("a")
-            title = feed.get('title')
-            link = feed.get('href')
-            if title==None or title=="" or link==None:
-                continue
-            subpage = urllib.request.urlopen(link)
-            subsoup = BeautifulSoup(subpage, 'html.parser')
-            contents = subsoup.findAll(class_='Normal')
-            result = ""
-            for deail in contents:
-                content = deail.getText().strip().lower()
-                content = re.sub('[!@#$".,()]', '', content)
-                result += content
-            writer.writerow([title, result])
+    for i in range(20):
+        # cate['tag'] = cate['tag'] +'/p'+ str(i)
+        page = urllib.request.urlopen(url+cate['tag'] +'/p'+ str(i))
+        soup = BeautifulSoup(page, 'html.parser')
+        new_feeds = soup.findAll(class_='title_news')
+        with open(cate['name']+'.csv', 'a', encoding='utf8') as csv_file:
+            writer = csv.writer(csv_file)
+            for nfeed in new_feeds:
+                feed = nfeed.find("a")
+                title = feed.get('title')
+                link = feed.get('href')
+                if title==None or title=="" or link==None:
+                    continue
+                subpage = urllib.request.urlopen(link)
+                subsoup = BeautifulSoup(subpage, 'html.parser')
+                contents = subsoup.findAll(class_='Normal')
+                result = ""
+                for deail in contents:
+                    content = deail.getText().strip().lower()
+                    content = re.sub('[!@#$".,()]', '', content)
+                    result += content
+                writer.writerow([title, result])
 
 
 
