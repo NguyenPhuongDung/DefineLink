@@ -9,8 +9,9 @@ def  not_relative_uri(href):
 url = 'https://vnexpress.net/'
 category = [{'tag':'kinh-doanh','name':'Kinh Doanh','id':0},{'tag':'the-thao','name':'The Thao','id':1}, 
             {'tag':'giai-tri','name':'Giai Tri','id':2}, {'tag':'du-lich', 'name':'Du Lich','id':3}, {'tag':'so-hoa','name':'So Hoa', 'id':4}]
+# category = [ {'tag':'so-hoa','name':'So Hoa', 'id':4}]
 for cate in category:
-    for i in range(20):
+    for i in range(21, 26):
         # cate['tag'] = cate['tag'] +'/p'+ str(i)
         page = urllib.request.urlopen(url+cate['tag'] +'/p'+ str(i))
         soup = BeautifulSoup(page, 'html.parser')
@@ -19,6 +20,8 @@ for cate in category:
             writer = csv.writer(csv_file)
             for nfeed in new_feeds:
                 feed = nfeed.find("a")
+                if feed==None or feed=="":
+                    continue
                 title = feed.get('title')
                 link = feed.get('href')
                 if title==None or title=="" or link==None:

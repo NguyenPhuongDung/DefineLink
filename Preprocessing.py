@@ -26,10 +26,10 @@ def get_data(folder_path):
             y.append(file_path)
     return X, y
 
-train_path = os.path.join(dir_path, 'Data')
+train_path = os.path.join(dir_path, 'Test')
 X_data, y_data = get_data(train_path)
 # X_train, X_test, y_train,  y_test = train_test_split(X_data, y_data , test_size=0.2) 
-pickle.dump(X_data, open('data/X_train.pkl', 'wb'))
-pickle.dump(y_data, open('data/y_train.pkl', 'wb'))
+pickle.dump(X_data, open('test/X_test.pkl', 'wb'))
+pickle.dump(y_data, open('test/y_test.pkl', 'wb'))
 # pickle.dump(X_test, open('data/X_test.pkl', 'wb'))
 # pickle.dump(y_test, open('data/y_test.pkl', 'wb'))
