@@ -1,4 +1,4 @@
-from pyvi import ViTokenizer, ViPosTagger # thư viện NLP tiếng Việt
+from pyvi import ViTokenizer # thư viện NLP tiếng Việt
 from sklearn.model_selection  import train_test_split
 from tqdm import tqdm
 import numpy as np
@@ -12,8 +12,6 @@ def get_data(folder_path):
     X = []
     y = []
     dirs = os.listdir(folder_path)
-    # for path in tqdm(dirs):
-        # file_paths = os.listdir(os.path.join(folder_path, path))
     for file_path in tqdm(dirs):
         with open(os.path.join(folder_path, file_path), 'r', encoding="utf8") as f:
             lines = f.readlines()

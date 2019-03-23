@@ -7,6 +7,7 @@ from sklearn import metrics
 from sklearn.naive_bayes import MultinomialNB
 from gensim.models import KeyedVectors 
 import os 
+from joblib import dump
 
 dir_path = os.path.dirname(os.path.realpath(os.getcwd()))
 word2vec_model_path = os.path.join(dir_path, 'DefineLink')
