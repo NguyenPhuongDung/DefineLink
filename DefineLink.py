@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import urllib.request
 import re
 from pyvi import ViTokenizer # thư viện NLP tiếng Việt
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from joblib import load
 
 def  not_relative_uri(href):
     return re.compile('^https://').search(href) is  not  None
@@ -27,5 +29,15 @@ for nfeed in new_feeds:
         content = re.sub('[!@#$".,()]', '', content)
         result += content
     result = ViTokenizer.tokenize(result)
-    print(result)
-
+print(result)
+result = [result]
+mnb = load("dump")
+tfidf_vect = TfidfVectorizer(analyzer='word', max_features=3000)
+x_testcv = tfidf_vect.transform(result)
+pred = mnb.predict(x_testcv[0])
+print(pred)
+# count = 0
+# for i in range(len(pred)):
+#     if pred[i] == actual[i]:
+#         count = count + 1
+# print(count/len(pred))

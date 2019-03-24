@@ -47,25 +47,29 @@ y_test_n = encoder.fit_transform(y_test)
 encoder.classes_ # kết quả: array(['Chinh tri Xa hoi', 'Doi song', 'Khoa hoc', 'Kinh doanh',
                  #                 'Phap luat', 'Suc khoe', 'The gioi', 'The thao', 'Van hoa',
     
-def train_model(classifier, X_data, y_data, X_test, y_test,is_neuralnet=False, n_epochs=3):       
-    X_train, X_val, y_train, y_val = train_test_split(X_data, y_data, test_size=0.1, random_state=42)
+# def train_model(classifier, X_data, y_data, X_test, y_test,is_neuralnet=False, n_epochs=3):       
+#     X_train, X_val, y_train, y_val = train_test_split(X_data, y_data, test_size=0.1, random_state=42)
     
-    if is_neuralnet:
-        classifier.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=n_epochs, batch_size=512)
+#     if is_neuralnet:
+#         classifier.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=n_epochs, batch_size=512)
         
-        val_predictions = classifier.predict(X_val)
-        test_predictions = classifier.predict(X_test)
-        val_predictions = val_predictions.argmax(axis=-1)
-        test_predictions = test_predictions.argmax(axis=-1)
-    else:
-        classifier.fit(X_train, y_train)
+#         val_predictions = classifier.predict(X_val)
+#         test_predictions = classifier.predict(X_test)
+#         val_predictions = val_predictions.argmax(axis=-1)
+#         test_predictions = test_predictions.argmax(axis=-1)
+#     else:
+#         classifier.fit(X_train, y_train)
     
-        train_predictions = classifier.predict(X_train)
-        val_predictions = classifier.predict(X_val)
-        test_predictions = classifier.predict(X_test)
-    # print("train_predictions accuracy: ", metrics.accuracy_score(train_predictions, y_val))    
-    print("Validation accuracy: ", metrics.accuracy_score(val_predictions, y_val))
-    print("Test accuracy: ", metrics.accuracy_score(test_predictions, y_test))
-train_model(MultinomialNB(), X_data_tfidf, y_data,X_test_tfidf, y_data, is_neuralnet=False)
+#         train_predictions = classifier.predict(X_train)
+#         val_predictions = classifier.predict(X_val)
+#         test_predictions = classifier.predict(X_test)
+#     # print("train_predictions accuracy: ", metrics.accuracy_score(train_predictions, y_val))    
+#     print("Validation accuracy: ", metrics.accuracy_score(val_predictions, y_val))
+#     print("Test accuracy: ", metrics.accuracy_score(test_predictions, y_test))
+# train_model(MultinomialNB(), X_data_tfidf, y_data,X_test_tfidf, y_data, is_neuralnet=False)
 # train_model(MultinomialNB(), X_data_tfidf_svd, y_data, is_neuralnet=False)
 # train_model(MultinomialNB(), X_data_tfidf_svd, y_data, is_neuralnet=False)
+
+mnb = MultinomialNB()
+mnb = mnb.fit(X_data_tfidf, y_data)
+dump(mnb,"dump")
