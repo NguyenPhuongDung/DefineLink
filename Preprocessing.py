@@ -1,10 +1,11 @@
-from pyvi import ViTokenizer # thư viện NLP tiếng Việt
+from pyvi import ViTokenizer
 from sklearn.model_selection  import train_test_split
 from tqdm import tqdm
 import numpy as np
-import gensim # thư viện NLP
+import gensim
 import os 
 import pickle
+
 dir_path = os.path.dirname(os.path.realpath(os.getcwd()))
 dir_path = os.path.join(dir_path, 'DefineLink')
 
@@ -24,10 +25,9 @@ def get_data(folder_path):
             y.append(file_path)
     return X, y
 
-train_path = os.path.join(dir_path, 'Test')
+train_path = os.path.join(dir_path, 'Data')
 X_data, y_data = get_data(train_path)
-# X_train, X_test, y_train,  y_test = train_test_split(X_data, y_data , test_size=0.2) 
-pickle.dump(X_data, open('test/X_test.pkl', 'wb'))
-pickle.dump(y_data, open('test/y_test.pkl', 'wb'))
+pickle.dump(X_data, open('data/X_train.pkl', 'wb'))
+pickle.dump(y_data, open('data/y_train.pkl', 'wb'))
 # pickle.dump(X_test, open('data/X_test.pkl', 'wb'))
 # pickle.dump(y_test, open('data/y_test.pkl', 'wb'))
