@@ -4,7 +4,7 @@ import re
 from pyvi import ViTokenizer
 from joblib import load
 
-link = "https://vnexpress.net/so-hoa/sac-khong-day-cua-apple-chua-ban-da-bi-khai-tu-3902173.html"      
+link = "https://www.24h.com.vn/bong-da/video-ket-qua-bong-da-suwon-incheon-utd-7-phut-2-ban-cong-phuong-thap-thom-c48a1039560.html"      
 page = urllib.request.urlopen(link) 
 bsPage = BeautifulSoup(page, 'html.parser')
 bodyPage = bsPage.find('body')
